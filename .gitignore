@@ -1,0 +1,16 @@
+/*.iml
+/build
+/documentation
+/.idea/*
+!/.idea/codeStyleSettings.xml
+!/.idea/inspectionProfiles
+/.idea/inspectionProfiles/*
+!/.idea/inspectionProfiles/springmvcjpa.xml
+!/.idea/inspectionProfiles/Project_Default.xml
+/.gradle
+/.sonar
+/env
+/ux/*.iml
+/ux/build
+/ux/extras
+/ux/war
