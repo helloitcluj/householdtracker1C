@@ -24,12 +24,17 @@ public class SchemaManager {
     private static final String DEFAULT_DELIMITER = ";";
     private static final Pattern NEW_DELIMITER_PATTERN = Pattern.compile("(?:--|\\/\\/|\\#)?!DELIMITER=(.+)");
     private static final Pattern COMMENT_PATTERN = Pattern.compile("^(?:--|\\/\\/|\\#).+");
+
     final Properties properties = new Properties();
+
+    public SchemaManager() {
+        initProperties();
+    }
 
     public static void main(final String[] args) {
         final SchemaManager schemaManager = new SchemaManager();
 
-        schemaManager.doMain();
+        schemaManager.recreateSchema();
     }
 
     public static void runScript(Connection connection, InputStream scriptInputStream) throws SQLException, IOException {
@@ -72,8 +77,7 @@ public class SchemaManager {
         }
     }
 
-    private void doMain() {
-        initProperties();
+    public void doMain() {
         recreateSchema();
     }
 
@@ -87,7 +91,7 @@ public class SchemaManager {
         }
     }
 
-    private void recreateSchema() {
+    public void recreateSchema() {
 
         final String jdbUrl = properties.getProperty("connection.string");
         LOGGER.info(jdbUrl);
