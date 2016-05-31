@@ -61,7 +61,7 @@ public class AccountController {
     }
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
-    public String create(final ModelMap model, final HttpSession session, final String userName, final String password) {
+    public String login(final ModelMap model, final HttpSession session, final String userName, final String password) {
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Logging into account: " + userName);
@@ -78,5 +78,19 @@ public class AccountController {
         }
 
         return result;
+    }
+
+    @RequestMapping(path = "logout", method = RequestMethod.GET)
+    public String logout(final ModelMap model, final HttpSession session) {
+
+        if (LOGGER.isDebugEnabled()) {
+            final Object principal = session.getAttribute(HomeController.CURRENT_PRINCIPAL_TAG);
+            LOGGER.debug("Logging out from account: %s", principal);
+        }
+
+        session.invalidate();
+
+        return "redirect:/account/loginpage.html";
+
     }
 }

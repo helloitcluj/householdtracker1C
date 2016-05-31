@@ -5,5 +5,6 @@
 </head>
 <body>
 Hello!
+<div style="position: absolute; right: 10px; top: 10px"><a href="account/logout">logout</a></div>
 </body>
 </html>
