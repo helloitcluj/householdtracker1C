@@ -19,6 +19,7 @@ public class AccountController {
     public static final String ACCOUNT_ERROR = "account/error";
     public static final String ACCOUNT_SUCCESS = "account/success";
     private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
+
     @Autowired
     private IAccountService accountService;
 
@@ -51,6 +52,25 @@ public class AccountController {
             default: {
                 throw new UnsupportedOperationException("Not supported case!");
             }
+        }
+
+        return result;
+    }
+
+    @RequestMapping(path = "login", method = RequestMethod.POST)
+    public String create(final ModelMap model, final String userName, final String password) {
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Logging into account: " + userName);
+        }
+
+        final String result;
+
+        if (accountService.authenticate(userName, password)) {
+            result = "redirect:/";
+        } else {
+            result = ACCOUNT_ERROR;
+            model.addAttribute(MESSAGE_TAG, "Authentication failure!");
         }
 
         return result;

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class AccountService implements IAccountService {
 
     private final IUserRepository userRepository;
 
-    public AccountService(IUserRepository userRepository) {
+    @Autowired
+    public AccountService(final IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -54,5 +56,12 @@ public class AccountService implements IAccountService {
         }
 
         return result;
+    }
+
+    @Override
+    public boolean authenticate(@NotNull final String userName, @NotNull final String password) {
+        final User user = userRepository.findOneByUserName(userName);
+
+        return user != null && password.equals(user.getPassword());
     }
 }
