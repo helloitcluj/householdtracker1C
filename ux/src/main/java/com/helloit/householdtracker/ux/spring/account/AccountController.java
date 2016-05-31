@@ -2,6 +2,7 @@ package com.helloit.householdtracker.ux.spring.account;
 
 
 import com.helloit.householdtracker.common.IAccountService;
+import com.helloit.householdtracker.ux.spring.HomeController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -58,7 +61,7 @@ public class AccountController {
     }
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
-    public String create(final ModelMap model, final String userName, final String password) {
+    public String create(final ModelMap model, final HttpSession session, final String userName, final String password) {
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Logging into account: " + userName);
@@ -67,6 +70,7 @@ public class AccountController {
         final String result;
 
         if (accountService.authenticate(userName, password)) {
+            session.setAttribute(HomeController.CURRENT_PRINCIPAL_TAG, userName);
             result = "redirect:/";
         } else {
             result = ACCOUNT_ERROR;
