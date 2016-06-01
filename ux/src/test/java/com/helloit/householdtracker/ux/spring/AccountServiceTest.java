@@ -31,6 +31,11 @@ public class AccountServiceTest {
         return new IUserRepository() {
 
             @Override
+            public User findOneByUserName(String userName) {
+                return null;
+            }
+
+            @Override
             public <S extends User> S save(S entity) {
                 return null;
             }
