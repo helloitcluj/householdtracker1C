@@ -65,20 +65,15 @@ public class SchemaManager {
                     if (trimmedLine.endsWith(delimiter)) {
                         LOGGER.info("SQL: " + command);
 
-                        Statement statement = connection.createStatement();
-
-                        statement.execute(command.toString());
-                        statement.close();
+                        try (Statement statement = connection.createStatement()) {
+                            statement.execute(command.toString());
+                        }
 
                         command = null;
                     }
                 }
             }
         }
-    }
-
-    public void doMain() {
-        recreateSchema();
     }
 
     private void initProperties() {
