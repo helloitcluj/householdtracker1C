@@ -1,19 +1,41 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Create Account</title>
+    <link rel="icon" href="../images/favicon.ico">
+    <link href="../css/vendor/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/createaccount.css" rel="stylesheet">
 </head>
 <body>
-<form action="create" method="post">
-    <label>User name:<input type="text" name="userName"></label>
-    <br/>
-    <label>Password:<input type="password" name="password"></label>
-    <br/>
-    <label>Retype password:<input type="password" name="retypedPassword"></label>
-    <br/>
-    <input type="submit" value="Create New Account">
-</form>
+<div class="container">
+    <form class="form-signin" action="create" method="post">
+        <h2 class="form-signin-heading">Signing up...</h2>
+        <label for="userName" class="sr-only">User name</label><input type="text" id="userName" name="userName"
+                                                                      placeholder="User name" class="form-control"
+                                                                      required autofocus>
+        <label for="password" class="sr-only">Password</label><input type="password" id="password" name="password"
+                                                                     placeholder="Password" class="form-control"
+                                                                     required>
+        <label for="retypedPassword" class="sr-only">Retype the password</label><input type="password"
+                                                                                       id="retypedPassword"
+                                                                                       name="retypedPassword"
+                                                                                       placeholder="Retype the password"
+                                                                                       class="form-control" required>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Create New Account</button>
+    </form>
+</div>
+<!-- /container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="javascript"></script>
+<script type="javascript">window.jQuery || document.write('<script src="../js/vendor/jquery.min.js" type="javascript"><\/script>')</script>
+<script src="../js/vendor/bootstrap.min.js" type="javascript"></script>
+<script src="../js/vendor/ie10-viewport-bug-workaround.js" type="javascript"></script>
 </body>
 </html>
