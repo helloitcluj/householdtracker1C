@@ -5,22 +5,22 @@ body {
     background-image: url("../images/background.jpg");
 }
 
-.form-create-account {
+.form-signin-account {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
 
-.form-create-account .form-signin-heading,
-.form-create-account .checkbox {
+.form-signin-account .form-signin-heading,
+.form-signin-account .checkbox {
     margin-bottom: 10px;
 }
 
-.form-create-account .checkbox {
+.form-signin-account .checkbox {
     font-weight: normal;
 }
 
-.form-create-account .form-control {
+.form-signin-account .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
@@ -29,18 +29,22 @@ body {
     font-size: 16px;
 }
 
-.form-create-account .form-control:focus {
+.form-signin-account .form-control:focus {
     z-index: 2;
 }
 
-.form-create-account input[type="text"] {
+.form-signin-account input[type="text"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.form-create-account input[type="password"] {
+.form-signin-account input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.form-signin-account button {
+    margin-bottom: 10px;
 }
