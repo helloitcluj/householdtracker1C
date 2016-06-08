@@ -33,7 +33,7 @@ body {
     z-index: 2;
 }
 
-.form-create-account input[type="email"] {
+.form-create-account input[type="userName"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
