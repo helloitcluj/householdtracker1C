@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -75,6 +76,28 @@ public class AccountController {
         } else {
             result = ACCOUNT_ERROR;
             model.addAttribute(MESSAGE_TAG, "Authentication failure!");
+        }
+
+        return result;
+    }
+
+
+    @RequestMapping(path = "loginAjax", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String loginAJAX(final HttpSession session, final String userName, final String password) {
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Logging into account: " + userName);
+        }
+
+        final String result;
+
+        if (accountService.authenticate(userName, password)) {
+            session.setAttribute(HomeController.CURRENT_PRINCIPAL_TAG, userName);
+            result = null;
+        } else {
+            result = "Authentication failure!";
         }
 
         return result;
