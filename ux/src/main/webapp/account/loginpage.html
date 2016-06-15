@@ -45,10 +45,16 @@
             event.preventDefault();
 
 
-            var url = $(this).attr("action");
+            var $form = $(this);
+            var url = $form.attr("action");
+
+            var data = {};
+            $form.find("input").each(function () {
+                data[this.name] = this.value;
+            });
 
             // Send the data using post
-            var posting = $.post(url, {userName: $("#userName").val(), password: $("#password").val()});
+            var posting = $.post(url, data);
 
             // Put the results in a div
             posting.done(function (message) {
