@@ -48,7 +48,7 @@
             var url = $(this).attr("action");
 
             // Send the data using post
-            var posting = $.post(url, {userName: $("#userName")[0].value, password: $("#password")[0].value});
+            var posting = $.post(url, {userName: $("#userName").val(), password: $("#password").val()});
 
             // Put the results in a div
             posting.done(function (message) {
