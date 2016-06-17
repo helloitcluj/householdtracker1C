@@ -21,7 +21,7 @@
                                                                      placeholder="Password" class="form-control"
                                                                      required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <div id="message"></div>
+        <div class="alert alert-danger" role="alert" id="message"></div>
         <div>Don't have an account? <a href="createaccount.html">Click here!</a></div>
     </form>
 </div>
@@ -57,11 +57,11 @@
             var posting = $.post(url, data);
 
             // Put the results in a div
-            posting.done(function (message) {
-                if (message === "") {
+            posting.done(function (result) {
+                if (result.kind === "SUCCESS") {
                     window.location.href = "../";
                 } else {
-                    $("#message").empty().append(message);
+                    $("#message").empty().append(result.message);
                 }
             });
         });

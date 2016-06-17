@@ -85,19 +85,19 @@ public class AccountController {
     @RequestMapping(path = "loginAjax", method = RequestMethod.POST)
     public
     @ResponseBody
-    String loginAJAX(final HttpSession session, final String userName, final String password) {
+    LoginResponse loginAJAX(final HttpSession session, final String userName, final String password) {
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Logging into account: " + userName);
         }
 
-        final String result;
+        final LoginResponse result;
 
         if (accountService.authenticate(userName, password)) {
             session.setAttribute(HomeController.CURRENT_PRINCIPAL_TAG, userName);
-            result = null;
+            result = new LoginResponse(LoginResponse.Kind.SUCCESS);
         } else {
-            result = "Authentication failure!";
+            result = new LoginResponse(LoginResponse.Kind.ERROR, "Authentication failure!");
         }
 
         return result;
