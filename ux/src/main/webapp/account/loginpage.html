@@ -21,7 +21,7 @@
                                                                      placeholder="Password" class="form-control"
                                                                      required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <div class="alert alert-danger" role="alert" id="message"></div>
+        <div id="message"></div>
         <div>Don't have an account? <a href="createaccount.html">Click here!</a></div>
     </form>
 </div>
@@ -61,7 +61,9 @@
                 if (result.kind === "SUCCESS") {
                     window.location.href = "../";
                 } else {
-                    $("#message").empty().append(result.message);
+                    var $alert = $('<div class="alert alert-danger" role="alert"></div>');
+                    $alert.append(result.message);
+                    $("#message").empty().append($alert);
                 }
             });
         });
