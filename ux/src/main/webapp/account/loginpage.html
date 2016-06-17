@@ -40,6 +40,7 @@
     $(function () {
         // Attach a submit handler to the form
         $("#loginForm").submit(function (event) {
+            $("#message").empty();
 
             // Stop form from submitting normally
             event.preventDefault();
@@ -63,8 +64,14 @@
                 } else {
                     var $alert = $('<div class="alert alert-danger" role="alert"></div>');
                     $alert.append(result.message);
-                    $("#message").empty().append($alert);
+                    $("#message").append($alert);
                 }
+            });
+
+            posting.fail(function () {
+                var $alert = $('<div class="alert alert-danger" role="alert"></div>');
+                $alert.append("Not able to connect to the server!");
+                $("#message").append($alert);
             });
         });
     });
