@@ -2,17 +2,17 @@ package com.helloit.householdtracker.ux.spring.account;
 
 /**
  */
-public class LoginResponse {
+public class LoginResponseDTO {
 
     private final Kind kind;
     private final String message;
 
-    public LoginResponse(final Kind kind, final String message) {
+    public LoginResponseDTO(final Kind kind, final String message) {
         this.kind = kind;
         this.message = message;
     }
 
-    public LoginResponse(final Kind kind) {
+    public LoginResponseDTO(final Kind kind) {
         this(kind, null);
     }
 
