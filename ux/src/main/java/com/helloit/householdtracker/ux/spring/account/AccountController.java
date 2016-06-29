@@ -2,7 +2,7 @@ package com.helloit.householdtracker.ux.spring.account;
 
 
 import com.helloit.householdtracker.common.IAccountService;
-import com.helloit.householdtracker.ux.spring.HomeController;
+import com.helloit.householdtracker.ux.common.SecurityFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class AccountController {
         final String result;
 
         if (accountService.authenticate(userName, password)) {
-            session.setAttribute(HomeController.CURRENT_PRINCIPAL_TAG, userName);
+            session.setAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG, userName);
             result = "redirect:/";
         } else {
             result = ACCOUNT_ERROR;
@@ -94,7 +94,7 @@ public class AccountController {
         final LoginResponse result;
 
         if (accountService.authenticate(userName, password)) {
-            session.setAttribute(HomeController.CURRENT_PRINCIPAL_TAG, userName);
+            session.setAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG, userName);
             result = new LoginResponse(LoginResponse.Kind.SUCCESS);
         } else {
             result = new LoginResponse(LoginResponse.Kind.ERROR, "Authentication failure!");
@@ -107,7 +107,7 @@ public class AccountController {
     public String logout(final ModelMap model, final HttpSession session) {
 
         if (LOGGER.isDebugEnabled()) {
-            final Object principal = session.getAttribute(HomeController.CURRENT_PRINCIPAL_TAG);
+            final Object principal = session.getAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG);
             LOGGER.debug("Logging out from account: %s", principal);
         }
 
