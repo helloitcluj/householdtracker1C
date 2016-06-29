@@ -5,6 +5,7 @@ import com.helloit.householdtracker.common.entities.User;
 import com.helloit.householdtracker.common.repository.IExpenseRepository;
 import com.helloit.householdtracker.common.repository.IUserRepository;
 import com.helloit.householdtracker.tools.SchemaManager;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +50,8 @@ public class ExpenseRepositoryTest {
         final Calendar now = Calendar.getInstance();
         final Expense expense = new Expense(35.2, now, "Profi city", testUser.getId());
         final Expense saved = expenseRepository.save(expense);
+
+        Assert.assertEquals("The first id created should be 0", new Integer(0), saved.getId());
     }
 
 }
