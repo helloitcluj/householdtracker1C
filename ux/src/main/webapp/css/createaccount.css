@@ -3,6 +3,7 @@
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
+    opacity: 0.9;
 }
 
 .form-create-account .form-signin-heading,
