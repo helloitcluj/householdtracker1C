@@ -94,17 +94,27 @@
         );
     };
 
+    helloit.loadAllExpenses = function () {
+
+        var posting = $.post("expense/findAll");
+
+        posting.done(function (expenses) {
+
+            $(expenses).each(function () {
+                helloit.addExpenseRow(this);
+            });
+
+
+        });
+
+
+    };
+
     $("#mainDiv").prepend(helloit.createNavbar());
 
     $(function () {
 
-        var dummyExpense = {
-            date: "1/1/1999",
-            amount: 45.4,
-            description: "Test"
-        };
-
-        helloit.addExpenseRow(dummyExpense);
+        helloit.loadAllExpenses();
 
         $("#saveButton").click(function () {
 

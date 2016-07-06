@@ -1,6 +1,7 @@
 package com.helloit.householdtracker.ux.spring.expense;
 
 
+import com.helloit.householdtracker.common.entities.Expense;
 import com.helloit.householdtracker.common.entities.User;
 import com.helloit.householdtracker.common.service.IAccountService;
 import com.helloit.householdtracker.common.service.IExpenseService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -38,5 +40,14 @@ public class ExpenseController {
         expenseService.save(date, amount, description, user.getId());
     }
 
+    @RequestMapping(path = "findAll", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    List<Expense> findAll(final HttpSession session) {
+        final String userName = (String) session.getAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG);
+        final User user = accountService.find(userName);
+
+        return expenseService.findAllByUserId(user.getId());
+    }
 
 }

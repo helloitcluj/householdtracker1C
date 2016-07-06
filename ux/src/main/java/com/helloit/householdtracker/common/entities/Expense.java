@@ -22,6 +22,9 @@ public class Expense {
     private String description;
     private Integer accountId;
 
+    public Expense() {
+    }
+
     public Expense(final double amount, final Calendar date, final String description, final Integer accountId) {
         this.amount = amount;
         this.date = date;
