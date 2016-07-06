@@ -1,8 +1,8 @@
 package com.helloit.householdtracker.ux.spring;
 
-import com.helloit.householdtracker.common.IAccountService;
 import com.helloit.householdtracker.common.entities.User;
 import com.helloit.householdtracker.common.repository.IUserRepository;
+import com.helloit.householdtracker.common.service.IAccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
@@ -63,5 +63,11 @@ public class AccountService implements IAccountService {
         final User user = userRepository.findOneByUserName(userName);
 
         return user != null && password.equals(user.getPassword());
+    }
+
+    @Override
+    public User find(final String userName) {
+
+        return userRepository.findOneByUserName(userName);
     }
 }

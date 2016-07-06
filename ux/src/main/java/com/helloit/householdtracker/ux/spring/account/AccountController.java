@@ -1,7 +1,7 @@
 package com.helloit.householdtracker.ux.spring.account;
 
 
-import com.helloit.householdtracker.common.IAccountService;
+import com.helloit.householdtracker.common.service.IAccountService;
 import com.helloit.householdtracker.ux.common.SecurityFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

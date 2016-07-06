@@ -1,8 +1,8 @@
 package com.helloit.householdtracker.ux.spring;
 
-import com.helloit.householdtracker.common.IAccountService;
 import com.helloit.householdtracker.common.entities.User;
 import com.helloit.householdtracker.common.repository.IUserRepository;
+import com.helloit.householdtracker.common.service.IAccountService;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
