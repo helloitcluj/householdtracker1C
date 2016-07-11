@@ -60,6 +60,7 @@ public class ExpenseRepositoryTest {
     @Test
     public void jdbReadTest() throws SQLException, ClassNotFoundException {
 
+        //needed for JDBC drivers written prior JDBC 4.0
         final String driverClassName = schemaManager.getDriverClassName();
         Class.forName(driverClassName);
 
