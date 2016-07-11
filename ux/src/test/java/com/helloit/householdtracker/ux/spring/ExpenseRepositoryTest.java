@@ -58,7 +58,7 @@ public class ExpenseRepositoryTest {
     }
 
     @Test
-    public void jdbReadTest() throws SQLException, ClassNotFoundException {
+    public void jdbcReadTest() throws SQLException, ClassNotFoundException {
 
         //needed for JDBC drivers written prior JDBC 4.0
         final String driverClassName = schemaManager.getDriverClassName();
@@ -66,7 +66,7 @@ public class ExpenseRepositoryTest {
 
         final String connectionString = schemaManager.getConnectionString();
         try (final Connection connection = DriverManager.getConnection(connectionString)) {
-            try (Statement statement = connection.createStatement()) {
+            try (final Statement statement = connection.createStatement()) {
                 try (final ResultSet resultSet = statement.executeQuery("SELECT id, userName, password FROM users")) {
                     System.out.println("=======================");
                     while (resultSet.next()) {
@@ -82,5 +82,25 @@ public class ExpenseRepositoryTest {
         }
 
     }
+
+    @Test
+    public void jdbcWriteTest() throws SQLException, ClassNotFoundException {
+
+        //needed for JDBC drivers written prior JDBC 4.0
+        final String driverClassName = schemaManager.getDriverClassName();
+        Class.forName(driverClassName);
+
+        final String connectionString = schemaManager.getConnectionString();
+        try (final Connection connection = DriverManager.getConnection(connectionString)) {
+            try (final PreparedStatement statement = connection.prepareStatement("INSERT INTO users (userName, password) VALUES (?, ?)")) {
+                statement.setString(1, "Jo");
+                statement.setString(2, "1");
+                statement.execute();
+            }
+        }
+
+        jdbcReadTest();
+    }
+
 
 }
