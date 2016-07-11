@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.sql.*;
 import java.util.Calendar;
 
 /**
@@ -29,11 +30,13 @@ public class ExpenseRepositoryTest {
     @Autowired
     private IUserRepository userRepository;
 
+    private SchemaManager schemaManager;
+
     private User testUser;
 
     @Before
     public void setup() {
-        final SchemaManager schemaManager = new SchemaManager();
+        schemaManager = new SchemaManager();
         schemaManager.recreateSchema();
 
         final User user = new User();
@@ -52,6 +55,31 @@ public class ExpenseRepositoryTest {
         final Expense saved = expenseRepository.save(expense);
 
         Assert.assertEquals("The first id created should be 0", new Integer(0), saved.getId());
+    }
+
+    @Test
+    public void jdbReadTest() throws SQLException, ClassNotFoundException {
+
+        final String driverClassName = schemaManager.getDriverClassName();
+        Class.forName(driverClassName);
+
+        final String connectionString = schemaManager.getConnectionString();
+        try (final Connection connection = DriverManager.getConnection(connectionString)) {
+            try (Statement statement = connection.createStatement()) {
+                try (final ResultSet resultSet = statement.executeQuery("SELECT id, userName, password FROM users")) {
+                    System.out.println("=======================");
+                    while (resultSet.next()) {
+                        final String userName = resultSet.getString("userName");
+                        final int id = resultSet.getInt("id");
+                        final String password = resultSet.getString("password");
+
+                        System.out.printf("%d; username : %s; password: %s; \n", id, userName, password);
+                    }
+                    System.out.println("=======================");
+                }
+            }
+        }
+
     }
 
 }

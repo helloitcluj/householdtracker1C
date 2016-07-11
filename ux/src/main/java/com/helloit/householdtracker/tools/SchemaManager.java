@@ -88,7 +88,7 @@ public class SchemaManager {
 
     public void recreateSchema() {
 
-        final String jdbUrl = properties.getProperty("connection.string");
+        final String jdbUrl = getConnectionString();
         LOGGER.info(jdbUrl);
 
         final ClassLoader classLoader = SchemaManager.class.getClassLoader();
@@ -102,5 +102,14 @@ public class SchemaManager {
 
 
     }
+
+    public String getConnectionString() {
+        return properties.getProperty("connection.string");
+    }
+
+    public String getDriverClassName() {
+        return properties.getProperty("driver.classname");
+    }
+
 
 }
