@@ -16,6 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.*;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  */
@@ -100,6 +101,10 @@ public class ExpenseRepositoryTest {
         }
 
         jdbcReadTest();
+
+        final List<User> all = userRepository.findAll();
+
+        Assert.assertEquals("Should be 2 items!", 2, all.size());
     }
 
 
