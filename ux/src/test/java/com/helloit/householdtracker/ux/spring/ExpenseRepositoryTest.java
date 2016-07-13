@@ -107,5 +107,25 @@ public class ExpenseRepositoryTest {
         Assert.assertEquals("Should be 2 items!", 2, all.size());
     }
 
+    @Test
+    public void jdbcDeleteTest() throws SQLException, ClassNotFoundException {
+
+        //needed for JDBC drivers written prior JDBC 4.0
+        final String driverClassName = schemaManager.getDriverClassName();
+        Class.forName(driverClassName);
+
+        final String connectionString = schemaManager.getConnectionString();
+        try (final Connection connection = DriverManager.getConnection(connectionString)) {
+            try (final Statement statement = connection.createStatement()) {
+                statement.execute("DELETE FROM users");
+            }
+        }
+
+        jdbcReadTest();
+
+        final List<User> all = userRepository.findAll();
+
+        Assert.assertEquals("Should be 0 items!", 0, all.size());
+    }
 
 }
