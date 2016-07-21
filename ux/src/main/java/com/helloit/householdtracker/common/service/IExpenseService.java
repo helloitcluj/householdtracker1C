@@ -10,4 +10,6 @@ public interface IExpenseService {
     Expense save(String date, double amount, String description, Integer accountId);
 
     List<Expense> findAllByUserId(Integer id);
+
+    Expense getByIdAndAccountId(Integer expenseId, Integer accountId);
 }

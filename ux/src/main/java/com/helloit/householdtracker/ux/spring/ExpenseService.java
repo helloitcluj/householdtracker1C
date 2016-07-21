@@ -42,6 +42,13 @@ public class ExpenseService implements IExpenseService {
         return expenseRepository.findByAccountId(id);
     }
 
+    @Override
+    public Expense getByIdAndAccountId(final Integer expenseId, final Integer accountId) {
+        Expense result = expenseRepository.findOne(expenseId);
+
+        return (result != null && result.getAccountId().equals(accountId)) ? result : null;
+    }
+
     private Calendar convert(String dateAsString) {
 
         Calendar result = null;
