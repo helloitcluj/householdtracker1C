@@ -1,38 +1,29 @@
-package com.helloit.householdtracker.common.entities;
+package com.helloit.householdtracker.ux.spring.expense;
 
-import javax.persistence.*;
 import java.util.Calendar;
 
 /**
  */
+public class ExpenseDTO {
 
-@Entity
-@Table(name = "expenses")
-public class Expense {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private double amount;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "accountId")
-    private User account;
+    private Integer accountId;
 
-    public Expense() {
+    public ExpenseDTO() {
     }
 
-    public Expense(final double amount, final Calendar date, final String description, final User account) {
+    public ExpenseDTO(final double amount, final Calendar date, final String description, final Integer accountId) {
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.account = account;
+        this.accountId = accountId;
     }
 
 
@@ -68,11 +59,12 @@ public class Expense {
         this.description = description;
     }
 
-    public User getAccount() {
-        return account;
+    public Integer getAccountId() {
+        return accountId;
     }
 
-    public void setAccount(final User account) {
-        this.account = account;
+    public void setAccount(final Integer accountId) {
+        this.accountId = accountId;
     }
+
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -34,21 +35,27 @@ public class ExpenseController {
     public void create(final HttpSession session, final String date, final double amount, final String description) {
         final User user = getCurrentUser(session);
 
-        expenseService.save(date, amount, description, user.getId());
+        expenseService.save(date, amount, description, user);
     }
 
     @RequestMapping(path = "findAll", method = RequestMethod.POST)
-    public List<Expense> findAll(final HttpSession session) {
+    public List<ExpenseDTO> findAll(final HttpSession session) {
         final User user = getCurrentUser(session);
 
-        return expenseService.findAllByUserId(user.getId());
+        final List<Expense> allByUserId = expenseService.findAllByUserId(user);
+
+        final List<ExpenseDTO> result = allByUserId.stream()
+                .map((item) -> new ExpenseDTO(item.getAmount(), item.getDate(), item.getDescription(), item.getAccount().getId()))
+                .collect(Collectors.toList());
+
+        return result;
     }
 
     @RequestMapping(path = "{expenseId}", method = RequestMethod.GET)
     public Expense getById(@PathVariable final Integer expenseId, final HttpSession session) {
         final User user = getCurrentUser(session);
 
-        return expenseService.getByIdAndAccountId(expenseId, user.getId());
+        return expenseService.getByIdAndAccountId(expenseId, user);
     }
 
     private User getCurrentUser(HttpSession session) {

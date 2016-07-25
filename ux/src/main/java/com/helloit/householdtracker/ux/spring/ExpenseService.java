@@ -1,6 +1,7 @@
 package com.helloit.householdtracker.ux.spring;
 
 import com.helloit.householdtracker.common.entities.Expense;
+import com.helloit.householdtracker.common.entities.User;
 import com.helloit.householdtracker.common.repository.IExpenseRepository;
 import com.helloit.householdtracker.common.service.IExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,24 +30,24 @@ public class ExpenseService implements IExpenseService {
 
     @Override
     public Expense save(final String date, final double amount,
-                        final String description, final Integer accountId) {
+                        final String description, final User account) {
 
-        final Expense expense = new Expense(amount, convert(date), description, accountId);
+        final Expense expense = new Expense(amount, convert(date), description, account);
 
         return expenseRepository.save(expense);
     }
 
     @Override
-    public List<Expense> findAllByUserId(Integer id) {
+    public List<Expense> findAllByUserId(final User account) {
 
-        return expenseRepository.findByAccountId(id);
+        return expenseRepository.findByAccount(account);
     }
 
     @Override
-    public Expense getByIdAndAccountId(final Integer expenseId, final Integer accountId) {
+    public Expense getByIdAndAccountId(final Integer expenseId, final User account) {
         Expense result = expenseRepository.findOne(expenseId);
 
-        return (result != null && result.getAccountId().equals(accountId)) ? result : null;
+        return (result != null && result.getAccount().getId().equals(account.getId())) ? result : null;
     }
 
     private Calendar convert(String dateAsString) {

@@ -52,10 +52,17 @@ public class ExpenseRepositoryTest {
     public void basicTest() {
 
         final Calendar now = Calendar.getInstance();
-        final Expense expense = new Expense(35.2, now, "Profi city", testUser.getId());
+        final Expense expense = new Expense(35.2, now, "Profi city", testUser);
         final Expense saved = expenseRepository.save(expense);
 
         Assert.assertEquals("The first id created should be 0", new Integer(0), saved.getId());
+
+        final List<Expense> expenses = expenseRepository.findByAccount(testUser);
+        Assert.assertEquals("We should have one expense", 1, expenses.size());
+
+        final Expense expenseReadBack = expenses.get(0);
+        final User expenseAccount = expense.getAccount();
+        Assert.assertEquals("Account should be the test one", testUser.getId(), expenseAccount.getId());
     }
 
     @Test
