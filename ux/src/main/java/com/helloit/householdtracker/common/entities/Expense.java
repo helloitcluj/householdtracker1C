@@ -25,6 +25,9 @@ public class Expense {
     @JoinColumn(name = "accountId")
     private User account;
 
+    public Expense() {
+    }
+
     public Expense(final double amount, final Calendar date, final String description, final User account) {
         this.amount = amount;
         this.date = date;
