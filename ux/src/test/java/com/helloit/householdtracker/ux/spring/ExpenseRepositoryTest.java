@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 /**
  */
@@ -49,6 +51,7 @@ public class ExpenseRepositoryTest {
 
 
     @Test
+    @Transactional
     public void basicTest() {
 
         final Calendar now = Calendar.getInstance();
@@ -60,9 +63,14 @@ public class ExpenseRepositoryTest {
         final List<Expense> expenses = expenseRepository.findByAccount(testUser);
         Assert.assertEquals("We should have one expense", 1, expenses.size());
 
-        final Expense expenseReadBack = expenses.get(0);
-        final User expenseAccount = expense.getAccount();
-        Assert.assertEquals("Account should be the test one", testUser.getId(), expenseAccount.getId());
+        final Expense firstAndOnlyExpense = expenses.get(0);
+        final User relatedAccount = firstAndOnlyExpense.getAccount();
+
+        final Set<Expense> expensesAgain = relatedAccount.getExpenses();
+        Assert.assertEquals("We should have one expense", 1, expensesAgain.size());
+
+
+        Assert.assertEquals("Account should be the test one", testUser.getId(), relatedAccount.getId());
     }
 
     @Test

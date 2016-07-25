@@ -32,7 +32,8 @@ public class Expense {
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.account = account;
+
+        setAccount(account);
     }
 
 
@@ -74,5 +75,9 @@ public class Expense {
 
     public void setAccount(final User account) {
         this.account = account;
+
+        if (!account.getExpenses().contains(this)) {
+            account.addExpense(this);
+        }
     }
 }
