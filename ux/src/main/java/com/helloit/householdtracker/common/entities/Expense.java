@@ -2,6 +2,9 @@ package com.helloit.householdtracker.common.entities;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  */
@@ -24,6 +27,16 @@ public class Expense {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "accountId")
     private User account;
+
+    @ManyToMany()
+    @JoinTable(
+            joinColumns = {
+                    @JoinColumn(name = "expenseId", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "expenseCategoryId", referencedColumnName = "id")
+            })
+    private Set<ExpenseCategory> expenseCategories = new HashSet<>();
 
     public Expense() {
     }
@@ -80,4 +93,17 @@ public class Expense {
             account.addExpense(this);
         }
     }
+
+    public Set<ExpenseCategory> getExpenseCategories() {
+        return Collections.unmodifiableSet(expenseCategories);
+    }
+
+    public void addExpenseCategory(final ExpenseCategory category) {
+        expenseCategories.add(category);
+    }
+
+    public void removeExpenseCategory(final ExpenseCategory category) {
+        expenseCategories.remove(category);
+    }
+
 }

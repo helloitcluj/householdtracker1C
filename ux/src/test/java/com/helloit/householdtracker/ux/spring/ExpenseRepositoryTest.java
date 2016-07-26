@@ -1,7 +1,9 @@
 package com.helloit.householdtracker.ux.spring;
 
 import com.helloit.householdtracker.common.entities.Expense;
+import com.helloit.householdtracker.common.entities.ExpenseCategory;
 import com.helloit.householdtracker.common.entities.User;
+import com.helloit.householdtracker.common.repository.IExpenseCategoryRepository;
 import com.helloit.householdtracker.common.repository.IExpenseRepository;
 import com.helloit.householdtracker.common.repository.IUserRepository;
 import com.helloit.householdtracker.tools.SchemaManager;
@@ -29,6 +31,9 @@ import java.util.Set;
 public class ExpenseRepositoryTest {
     @Autowired
     private IExpenseRepository expenseRepository;
+
+    @Autowired
+    private IExpenseCategoryRepository expenseCategoryRepository;
 
     @Autowired
     private IUserRepository userRepository;
@@ -143,4 +148,27 @@ public class ExpenseRepositoryTest {
         Assert.assertEquals("Should be 0 items!", 0, all.size());
     }
 
+    @Test
+    @Transactional
+    public void expenseCategoryTest() {
+
+        final List<ExpenseCategory> categories = expenseCategoryRepository.findAll();
+
+        final Calendar now = Calendar.getInstance();
+        final Expense expense = new Expense(35.2, now, "Profi city", testUser);
+
+        final ExpenseCategory categoryToBeSet = categories.get(0);
+        expense.addExpenseCategory(categoryToBeSet);
+        final Expense saved = expenseRepository.save(expense);
+
+        Assert.assertEquals("The first id created should be 0", new Integer(0), saved.getId());
+
+        final List<Expense> expenses = expenseRepository.findByAccount(testUser);
+        Assert.assertEquals("We should have one expense", 1, expenses.size());
+
+        final Expense firstAndOnlyExpense = expenses.get(0);
+        final Set<ExpenseCategory> expenseCategories = firstAndOnlyExpense.getExpenseCategories();
+        Assert.assertEquals("We should have one expense category", 1, expenseCategories.size());
+
+    }
 }
