@@ -30,6 +30,7 @@ public class Expense {
 
     @ManyToMany()
     @JoinTable(
+            name = "expenses_expense_categories",
             joinColumns = {
                     @JoinColumn(name = "expenseId", referencedColumnName = "id")
             },
